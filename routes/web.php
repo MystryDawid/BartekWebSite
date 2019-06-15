@@ -18,4 +18,11 @@ Route::get('/BartekAdminUrban/StartEditProduct', "BartekAdminUrbanController@Sta
 Route::get('/BartekAdminUrban/StartDelProduct', "BartekAdminUrbanController@StartDelProduct");
 Route::get('/product/{id}', "PagesController@product");
 Route::get('/category/{id}', "PagesController@category");
-Route::resource('BartekAdminUrban','BartekAdminUrbanController');
+Route::get('/BartekAdminUrban','HomeController@index')->name('home');
+
+//Route::resource('/BartekAdminUrban','BartekAdminUrbanController');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
