@@ -34,9 +34,14 @@
                 <a href="{{url("/BartekAdminUrban/StartAddProduct")}}" class="btn bg-dark text-white">Dodaj produkt</a>
                 <a href="{{url("/BartekAdminUrban/StartEditProduct")}}" class="btn bg-dark text-white">Edytuj produkt</a>
                 <a href="{{url("/BartekAdminUrban/StartDelProduct")}}" class="btn bg-dark text-white">Usuń produkt</a>
-                
-                
-                </div>
+                <a class="btn bg-dark text-white" href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </div>
         </div>
     </div>
 </div>

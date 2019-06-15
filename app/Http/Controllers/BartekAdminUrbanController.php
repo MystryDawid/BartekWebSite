@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BartekAdminUrbanController extends Controller
 {
@@ -86,28 +87,48 @@ class BartekAdminUrbanController extends Controller
 
     public function StartAddCategory()
     {
-        $categories =  Category::all();
-        return view('pages.adminmain')->with('categoris',$categories);
+        if(Auth::user()){
+            $categories =  Category::all();
+            return view('layouts.adminindex')->with('categoris',$categories);
+        }else{
+            echo "essa";
+        }
+        
     }
 
 
     public function StartAddProduct()
     {
-        $categories =  Category::all();
-        return view('pages.productform')->with('categoris',$categories);
+        if(Auth::user()){
+            $categories =  Category::all();
+            return view('layouts.adminindex')->with('categoris',$categories);
+        }else{
+            echo "Stop it";
+        }
+    
     }
 
 
     public function StartEditProduct()
     {
-        $categories =  Category::all();
-        return view('pages.adminmain')->with('categoris',$categories);
+        if(Auth::user()){
+            $categories =  Category::all();
+            return view('layouts.adminindex')->with('categoris',$categories);
+        }else{
+            echo "Stop it";
+        }
+        
     }
 
     public function StartDelProduct()
     {
-        $categories =  Category::all();
-        return view('pages.adminmain')->with('categoris',$categories);
+        if(Auth::user()){
+            $categories =  Category::all();
+            return view('layouts.adminindex')->with('categoris',$categories);
+        }else{
+            echo "Stop it";
+        }
+    
     }
 
 
