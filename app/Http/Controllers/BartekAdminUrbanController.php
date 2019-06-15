@@ -84,51 +84,38 @@ class BartekAdminUrbanController extends Controller
         //
     }
 
+    public function AddProduct()
+    {
+        $categories =  Category::all();
+        return view('pages.productform')->with('categoris',$categories);
+    }
+
 
     public function StartAddCategory()
     {
-        if(Auth::user()){
             $categories =  Category::all();
             return view('layouts.adminindex')->with('categoris',$categories);
-        }else{
-            echo "essa";
-        }
-        
     }
 
 
     public function StartAddProduct()
     {
-        if(Auth::user()){
             $categories =  Category::all();
-            return view('layouts.adminindex')->with('categoris',$categories);
-        }else{
-            echo "Stop it";
-        }
-    
+            return view('pages.productform')->with('categoris',$categories);
+   
     }
 
 
     public function StartEditProduct()
     {
-        if(Auth::user()){
             $categories =  Category::all();
             return view('layouts.adminindex')->with('categoris',$categories);
-        }else{
-            echo "Stop it";
-        }
-        
     }
 
     public function StartDelProduct()
     {
-        if(Auth::user()){
             $categories =  Category::all();
             return view('layouts.adminindex')->with('categoris',$categories);
-        }else{
-            echo "Stop it";
-        }
-    
     }
 
 

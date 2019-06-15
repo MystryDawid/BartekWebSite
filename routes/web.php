@@ -12,15 +12,19 @@
 */
 
 Route::get('/', "PagesController@index");
-Route::get('/BartekAdminUrban/StartAddCategory', "BartekAdminUrbanController@StartAddCategory");
-Route::get('/BartekAdminUrban/StartAddProduct', "BartekAdminUrbanController@StartAddProduct");
-Route::get('/BartekAdminUrban/StartEditProduct', "BartekAdminUrbanController@StartEditProduct");
-Route::get('/BartekAdminUrban/StartDelProduct', "BartekAdminUrbanController@StartDelProduct");
+Route::get('/BartekAdminUrban/StartAddCategory', 'BartekAdminUrbanController@StartAddCategory')->middleware('auth');;
+Route::get('/BartekAdminUrban/StartAddProduct', "BartekAdminUrbanController@StartAddProduct")->middleware('auth');;
+Route::get('/BartekAdminUrban/StartEditProduct', "BartekAdminUrbanController@StartEditProduct")->middleware('auth');;
+Route::get('/BartekAdminUrban/StartDelProduct', "BartekAdminUrbanController@StartDelProduct")->middleware('auth');;
 Route::get('/product/{id}', "PagesController@product");
 Route::get('/category/{id}', "PagesController@category");
 Route::get('/BartekAdminUrban','HomeController@index')->name('home');
 
-//Route::resource('/BartekAdminUrban','BartekAdminUrbanController');
+Route::post('BartekAdminUrbanController/AddProduct',
+ ['uses' => 'BartekAdminUrbanController@AddProduct']);
+
+
+
 
 
 Auth::routes();

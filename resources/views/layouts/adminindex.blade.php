@@ -8,17 +8,8 @@
         <link href="{{asset('public/css/app.css')}}" rel="stylesheet">
     </head>
     <body>
-            @include('components.navbarA')
-
-
-        
+        @include('components.navbarA')
         @yield('content')
-
-
-        @include('components.footer')
-
-
-
     <script src="{{asset('public/js/app.js')}}"></script>
     <script src="{{asset('public/js/custome.js')}}"></script>
     </body>
