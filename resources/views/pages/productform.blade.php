@@ -18,10 +18,11 @@
         {{  Form::label('description',"Opis")   }}
         {{  Form::textarea('description',"",['class' => 'form-control', 'placeholder' => "Opis"])   }}
         {{  Form::label('category',"kategorie") }}
-        {{  Form::select('category', $data) 
+        {{  Form::select('category', $data) }}
+        {{  Form::label('Oncarousel',"Czy ma pojawić się na slajdach?") }}
+        {{  Form::checkbox('Oncarousel') }}
         
-        
-        }}<br>
+        <br>
         {{  Form::file('imgs[]',['multiple' => 'multiple'])    }}
         {{  Form::submit('Click me!')   }}
         {!! Form::close() !!}

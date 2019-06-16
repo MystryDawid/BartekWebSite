@@ -26,11 +26,6 @@
       
     </div>
 
-
-
-    <div class="row">
-        
-    </div>
 </div>
 
 <br><br><br>

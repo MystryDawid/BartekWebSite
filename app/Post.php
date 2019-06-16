@@ -27,7 +27,7 @@ class Post extends Model
     }
 
     public static function GetProductAllPhotos($id){ 
-        $files = File::files(public_path("images/$id/"));
+        $files = File::files(public_path("storage/images/$id/"));
         $filecount = 0;
         
         if ($files !== false) {

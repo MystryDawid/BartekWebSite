@@ -90,35 +90,27 @@ class BartekAdminUrbanController extends Controller
 
         $id = Post::max("id") + 1;
         $categories =  Category::all();
-        //$this->validate($request, [
-         //   'nazwa' => 'required',
-        //    'Kategoria' => 'required',
-        //    'description' => 'required',
-        //    'imgs' => 'required',
-        //    'imgs' => 'image|mimes:jpeg,jpg'
-        //]);
+        $this->validate($request, [
+            'nazwa' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+            'imgs[]' => 'required',
+            'imgs[]' => 'image:jpeg,jpg',
+            'Oncarousel' =>'required'
+        ]);
         
-        
-        //$extension = $request->imgs->extension();
-
-        //print_r($request->file()['imgs']);
-                 $i = 1;
-                foreach($request->file()['imgs'] as $test){
-
-                $test->storeAs('/public/images/'.$id,$i."jpg");
-                    $i++;
-
-                    echo "dziala";
-                }
-
-        
-            //print_r($request->file());
-        
-
-
-
-
-        //return redirect('BartekAdminUrban')->with('success',"Dodano Produkt.");;
+        Post::insert([
+            'Nazwa' => $request->input('nazwa'),
+            'Category' => $request->input('category'),
+            'Description' => $request->input('description'),
+            'Oncarousel' => $request->input('Oncarousel')
+            ]);
+        $i = 1;
+        foreach($request->file()['imgs'] as $test){
+            $test->storeAs('/public/images/'.$id,$i.".jpg");
+            $i++;
+        }
+        return redirect('BartekAdminUrban')->with('success',"Dodano Produkt.");;
     }
 
 
