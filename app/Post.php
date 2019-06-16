@@ -49,4 +49,10 @@ class Post extends Model
         $products->appends(request()->query())->links();
         return $products;
     }
+
+    public static function GetProductAll(){ 
+        $products = Post::paginate(9);
+        $products->appends(request()->query())->links();
+        return $products;
+    }
 }

@@ -6,6 +6,8 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+
 class BartekAdminUrbanController extends Controller
 {
     /**
@@ -173,15 +175,30 @@ class BartekAdminUrbanController extends Controller
 
     public function StartEditProduct()
     {
+
             $categories =  Category::all();
-            return view('layouts.adminindex')->with('categoris',$categories);
+
+            $products = POST::GetProductAll();
+            return view('pages.paginationA')->with('categoris',$categories)->with('products',$products);
     }
 
-    public function StartDelProduct()
+    public function DeleteProduct($id)
     {
-            $categories =  Category::all();
-            return view('layouts.adminindex')->with('categoris',$categories);
+        Post::where('id', $id)->delete();
+        Storage::deleteDirectory("public/images/".$id);
+            return redirect('BartekAdminUrban')->with('success',"Usunięto produkt.");;
     }
 
+
+    public function searchA(Request $request){
+        $this->validate($request, [
+            'nazwa' => 'required'
+        ]);
+            
+            $categories =  Category::all();
+            $searchResult = POST::GetProductALike();
+            return view('pages.paginationA')->with('categoris',$categories)->with('products',$searchResult);
+    
+    }
 
 }

@@ -10,7 +10,7 @@
         <div class="col d-flex justify-content-end align-items-center">
 
             
-                    {!! Form::open(['method' => 'GET','action' => 'PagesController@search', 'class' => 'input-group', 'required','minlength'=>"1"] ) !!} 
+                    {!! Form::open(['method' => 'GET','action' => 'BartekAdminUrbanController@searchA', 'class' => 'input-group', 'required','minlength'=>"1"] ) !!} 
                     {{  Form::text('nazwa',"",['class' => 'form-control input-group-append', 'placeholder' => "Nazwa towaru"]) }}
                     {{  Form::submit("Szukaj", ['class' => "input-group-append"]) }}
                     {!! Form::close() !!}

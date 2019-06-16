@@ -35,14 +35,21 @@ Route::post('BartekAdminUrban/AddCategory',
  Route::GET('BartekAdminUrban/DeleteCategory/{id}',
  ['uses' => 'BartekAdminUrbanController@DeleteCategory'])->middleware('auth');
 
+ Route::GET('BartekAdminUrban/DeleteProduct/{id}',
+ ['uses' => 'BartekAdminUrbanController@DeleteProduct'])->middleware('auth');
+
 
 
  
 
 
 
- Route::get('/BartekAdminUrban/StartEditCategory/{id}', "BartekAdminUrbanController@EditCategory")->middleware('auth');;
+ Route::get('/BartekAdminUrban/StartEditCategory/{id}', 
+ "BartekAdminUrbanController@EditCategory")->middleware('auth');;
 
+
+ Route::GET('BartekAdminUrban/searchA',
+ ['uses' => 'BartekAdminUrbanController@searchA'])->middleware('auth');;
 
  Route::GET('PagesController/search',
  ['uses' => 'PagesController@search']);
