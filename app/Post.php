@@ -2,6 +2,7 @@
 
 namespace App;
 use File;
+use Input;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Storage;
@@ -36,5 +37,10 @@ class Post extends Model
         return $filecount;
     }
 
-
+    public static function GetProductALike(){ 
+        $Name = Input::get('Name');
+        $products = Post::where("Nazwa", "like", "%".$Name."%")->paginate(2);
+        $products->appends(request()->query())->links();
+        return $products;
+    }
 }

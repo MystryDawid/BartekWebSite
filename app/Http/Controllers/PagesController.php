@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
+use App\Order;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -34,6 +35,17 @@ class PagesController extends Controller
         echo $a;
         $categories =  Category::all();
         return view('pages.index')->with('categoris',$categories);
+    }
+
+    public function search(Request $request){
+        $this->validate($request, [
+            'nazwa' => 'required'
+        ]);
+            
+            $categories =  Category::all();
+            $searchResult = POST::GetProductALike();
+            return view('pages.AfterSearch')->with('categoris',$categories)->with('products',$searchResult);
+    
     }
 
    

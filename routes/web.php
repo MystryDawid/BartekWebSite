@@ -23,6 +23,10 @@ Route::get('/BartekAdminUrban','HomeController@index')->name('home');
 Route::post('BartekAdminUrbanController/AddProduct',
  ['uses' => 'BartekAdminUrbanController@AddProduct']);
 
+ Route::GET('PagesController/search',
+ ['uses' => 'PagesController@search']);
+
+
 
 
 
