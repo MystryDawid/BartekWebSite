@@ -39,7 +39,7 @@ class Post extends Model
 
     public static function GetProductALike(){ 
         $Name = Input::get('Name');
-        $products = Post::where("Nazwa", "like", "%".$Name."%")->paginate(2);
+        $products = Post::where("Nazwa", "like", "%".$Name."%")->paginate(9);
         $products->appends(request()->query())->links();
         return $products;
     }

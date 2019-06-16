@@ -10,8 +10,16 @@
                 </div>
             @endforeach
     </div>  
-    <a href="{{$products->previousPageUrl()}}">Previous</a>
-    <a href="{{$products->currentPage()}}">{{$products->currentPage()}}</a>
-    
-    <a href="{{$products->nextPageUrl()}}">{{$products->nextPageUrl()}}</a>
+    <div class="row w-100 d-flex justify-content-center">
+            @if ($products->currentPage() != 1)
+            <div class="col-lg-2 text-right"><a href="{{$products->previousPageUrl()}}">Poprzednia strona</a></div> 
+            @else
+            <div class="col-lg-2"></div>
+            @endif
+                
+                <div class="col-lg-auto"><a>{{$products->currentPage()}}</a></div>
+                <div class="col-lg-2"><a href="{{$products->nextPageUrl()}}">Następna strona</a></div>
+        
+        
+    </div>
 </div>
