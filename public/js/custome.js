@@ -4,3 +4,7 @@ function myFunction(imgs) {
     imgText.innerHTML = imgs.alt;
     expandImg.parentElement.style.display = "block";
   }
+
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })

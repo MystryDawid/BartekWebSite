@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Category;
+use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -97,10 +98,12 @@ class BartekAdminUrbanController extends Controller
             return view('pages.categoryform')->with('categoris',$categories);
     }
 
-    public function AddCategory(Request $request)
-    {
+    public function AddCategory(Request $request){
+        $this->validate($request, [
+            'Kategoria' => 'required'
+        ]);
         Category::insert(['Name' => $request->input('Kategoria')]);
-        return redirect('BartekAdminUrban');
+        return redirect('BartekAdminUrban')->with('success',"Dodano kategorię.");;
     }
 
     public function StartEditCategory()
@@ -121,16 +124,20 @@ class BartekAdminUrbanController extends Controller
 
     public function UpdateCategory(Request $request)
     {
+        $this->validate($request, [
+            'Kategoria' => 'required'
+        ]);
         Category::where('id', $request->idC)
             ->update(['Name' => $request->Kategoria]);
-            return redirect('BartekAdminUrban');
+            return redirect('BartekAdminUrban')->with('success',"Zaktualizowano kategorię.");
 
     }
 
     public function DeleteCategory($id)
     {
         Category::where('id', $id)->delete();
-            return redirect('BartekAdminUrban');
+        Post::where('Category', $id)->delete();
+            return redirect('BartekAdminUrban')->with('success',"Usunięto kategorię.");;
 
     }
 

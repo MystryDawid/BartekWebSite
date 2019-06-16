@@ -9,6 +9,7 @@
     </head>
     <body>
         @include('components.navbarA')
+        @include('components.messasges')
         @yield('content')
     <script src="{{asset('public/js/app.js')}}"></script>
     <script src="{{asset('public/js/custome.js')}}"></script>
