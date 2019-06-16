@@ -26,6 +26,9 @@ Route::post('BartekAdminUrbanController/AddProduct',
  Route::GET('PagesController/search',
  ['uses' => 'PagesController@search']);
 
+ Route::GET('PagesController/category',
+ ['uses' => 'PagesController@category']);
+
 
 
 

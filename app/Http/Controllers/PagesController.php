@@ -30,13 +30,6 @@ class PagesController extends Controller
                 ->with("images",$images);
     }
 
-    public function category($id){
-        $a = $id;
-        echo $a;
-        $categories =  Category::all();
-        return view('pages.index')->with('categoris',$categories);
-    }
-
     public function search(Request $request){
         $this->validate($request, [
             'nazwa' => 'required'
@@ -44,7 +37,14 @@ class PagesController extends Controller
             
             $categories =  Category::all();
             $searchResult = POST::GetProductALike();
-            return view('pages.AfterSearch')->with('categoris',$categories)->with('products',$searchResult);
+            return view('pages.pagination')->with('categoris',$categories)->with('products',$searchResult);
+    
+    }
+
+    public function category($id){
+            $categories =  Category::all();
+            $searchResult = POST::GetProductCategory($id);
+            return view('pages.pagination')->with('categoris',$categories)->with('products',$searchResult);
     
     }
 

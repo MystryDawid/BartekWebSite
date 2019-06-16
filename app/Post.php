@@ -43,4 +43,10 @@ class Post extends Model
         $products->appends(request()->query())->links();
         return $products;
     }
+
+    public static function GetProductCategory($id){ 
+        $products = Post::where("category", "=", $id)->paginate(9);
+        $products->appends(request()->query())->links();
+        return $products;
+    }
 }

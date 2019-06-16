@@ -4,9 +4,4 @@
 @include('components.goodshoping')
 @include('components.ProductsAfterSearch')
 
-
-
-
-
-
 @endsection
