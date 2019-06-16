@@ -1,5 +1,13 @@
 @extends('layouts.adminindex')
 
+<?php 
+    $data = [];
+    foreach($categoris as $item){
+        $data[$item['id']] = $item['Name'];
+    }
+?>
+
+
 @section('content')
 <br><br>
 <div class="container">
@@ -10,10 +18,12 @@
         {{  Form::label('description',"Opis")   }}
         {{  Form::textarea('description',"",['class' => 'form-control', 'placeholder' => "Opis"])   }}
         {{  Form::label('category',"kategorie") }}
-        {{  Form::select('category', array('L' => 'Large', 'S' => 'Small')) }}<br>
-        {{  Form::file('imgs',['multiple' => 'multiple'])    }}
-        {{  Form::submit('Click me!')   }}
+        {{  Form::select('category', $data) 
         
+        
+        }}<br>
+        {{  Form::file('imgs[]',['multiple' => 'multiple'])    }}
+        {{  Form::submit('Click me!')   }}
         {!! Form::close() !!}
     </div>
 </div>

@@ -85,10 +85,23 @@ class BartekAdminUrbanController extends Controller
         //
     }
 
-    public function AddProduct()
+    public function AddProduct(Request $request)
     {
         $categories =  Category::all();
-        return view('pages.productform')->with('categoris',$categories);
+        $this->validate($request, [
+            'nazwa' => 'required',
+            'Kategoria' => 'required',
+            'description' => 'required',
+            'imgs' => 'required',
+            'photo' => 'image|mimes:jpeg,jpg'
+        ]);
+        
+
+            
+
+
+
+        return redirect('BartekAdminUrban')->with('success',"Dodano Produkt.");;
     }
 
 
