@@ -94,9 +94,45 @@ class BartekAdminUrbanController extends Controller
     public function StartAddCategory()
     {
             $categories =  Category::all();
-            return view('layouts.adminindex')->with('categoris',$categories);
+            return view('pages.categoryform')->with('categoris',$categories);
     }
 
+    public function AddCategory(Request $request)
+    {
+        Category::insert(['Name' => $request->input('Kategoria')]);
+        return redirect('BartekAdminUrban');
+    }
+
+    public function StartEditCategory()
+    {
+         $categories = Category::all();
+         return view('pages.allCategories')->with('categoris',$categories);
+         
+    }
+
+    public function EditCategory($id)
+    {
+
+        $categories =  Category::all();
+        return view('pages.categoryEdit')
+                ->with('categoris',$categories)
+                ->with('id',$id);
+    }
+
+    public function UpdateCategory(Request $request)
+    {
+        Category::where('id', $request->idC)
+            ->update(['Name' => $request->Kategoria]);
+            return redirect('BartekAdminUrban');
+
+    }
+
+    public function DeleteCategory($id)
+    {
+        Category::where('id', $id)->delete();
+            return redirect('BartekAdminUrban');
+
+    }
 
     public function StartAddProduct()
     {
