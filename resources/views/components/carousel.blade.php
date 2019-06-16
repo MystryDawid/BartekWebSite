@@ -19,7 +19,7 @@
                 <div class="carousel-item">
             @endif
                 <div class="container d-flex justify-content-center">
-                <a href="{{url('product/'.$item['Id']."/")}}"><img src="{{asset("public/images/".$item['Id']."/1.jpg")}}"></a>
+                <a href="{{url('product/'.$item['Id']."/")}}"><img src="{{asset("public/storage/images/".$item['Id']."/1.jpg")}}"></a>
                 </div>
             </div>  
             <?php $i++ ?>

@@ -7,14 +7,14 @@
     <div class="row">
       <div class="col-lg-6 col-md-12 justify-content-center">
             <div class="d-flex justify-content-center">
-                <img class="BigImgProduct" src="{{asset("public/images/".$product['Id']."/1.jpg")}}" id="expandedImg">
+                <img class="BigImgProduct" src="{{asset("public/storage/images/".$product['Id']."/1.jpg")}}" id="expandedImg">
             </div>
             
           
           <br>
           <div class="justify-content-around d-flex">
             @for ($i = 1; $i <= $images; $i++)
-              <img class="smallImgProduct" src="{{asset("public/images/".$product['Id']."/".$i.".jpg")}}" onclick="myFunction(this);">
+              <img class="smallImgProduct" src="{{asset("public/storage/images/".$product['Id']."/".$i.".jpg")}}" onclick="myFunction(this);">
             @endfor
           </div>
       </div>

@@ -5,7 +5,7 @@ use App\Category;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\File;
 class BartekAdminUrbanController extends Controller
 {
     /**
@@ -87,21 +87,38 @@ class BartekAdminUrbanController extends Controller
 
     public function AddProduct(Request $request)
     {
+
+        $id = Post::max("id") + 1;
         $categories =  Category::all();
-        $this->validate($request, [
-            'nazwa' => 'required',
-            'Kategoria' => 'required',
-            'description' => 'required',
-            'imgs' => 'required',
-            'photo' => 'image|mimes:jpeg,jpg'
-        ]);
+        //$this->validate($request, [
+         //   'nazwa' => 'required',
+        //    'Kategoria' => 'required',
+        //    'description' => 'required',
+        //    'imgs' => 'required',
+        //    'imgs' => 'image|mimes:jpeg,jpg'
+        //]);
+        
+        
+        //$extension = $request->imgs->extension();
+
+        //print_r($request->file()['imgs']);
+                 $i = 1;
+                foreach($request->file()['imgs'] as $test){
+
+                $test->storeAs('/public/images/'.$id,$i."jpg");
+                    $i++;
+
+                    echo "dziala";
+                }
+
+        
+            //print_r($request->file());
         
 
-            
 
 
 
-        return redirect('BartekAdminUrban')->with('success',"Dodano Produkt.");;
+        //return redirect('BartekAdminUrban')->with('success',"Dodano Produkt.");;
     }
 
 
