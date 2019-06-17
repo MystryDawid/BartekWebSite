@@ -39,6 +39,9 @@ Route::post('BartekAdminUrban/AddProduct',
 Route::GET('BartekAdminUrban/StartEditProduct/{id}',
  ['uses' => 'BartekAdminUrbanController@StartEditProduct'])->middleware('auth');
 
+Route::GET('BartekAdminUrban/UpdateProduct',
+ ['uses' => 'BartekAdminUrbanController@UpdateProduct'])->middleware('auth');
+
 Route::GET('BartekAdminUrban/DeleteProduct/{id}',
  ['uses' => 'BartekAdminUrbanController@DeleteProduct'])->middleware('auth');
 

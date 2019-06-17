@@ -91,11 +91,64 @@ class BartekAdminUrbanController extends Controller
 
   
 
+    public function StartAddCategory()
+    {
+            $categories =  Category::all();
+            return view('pages.categoryform')->with('categoris',$categories);
+    }
+
+    public function AddCategory(Request $request){
+        $this->validate($request, [
+            'Kategoria' => 'required'
+        ]);
+        Category::insert(['Name' => $request->input('Kategoria')]);
+        return redirect('BartekAdminUrban')->with('success',"Dodano kategorię.");;
+    }
+
+    public function StartEditCategory()
+    {
+         $categories = Category::all();
+         return view('pages.allCategories')->with('categoris',$categories);
+         
+    }
+
+    public function EditCategory($id)
+    {
+
+        $categories =  Category::all();
+        return view('pages.categoryEdit')
+                ->with('categoris',$categories)
+                ->with('id',$id);
+    }
+
+    public function UpdateCategory(Request $request)
+    {
+        $this->validate($request, [
+            'Kategoria' => 'required'
+        ]);
+        Category::where('id', $request->idC)
+            ->update(['Name' => $request->Kategoria]);
+            return redirect('BartekAdminUrban')->with('success',"Zaktualizowano kategorię.");
+    }
+
+    public function DeleteCategory($id)
+    {
+        Category::where('id', $id)->delete();
+        Post::where('Category', $id)->delete();
+            return redirect('BartekAdminUrban')->with('success',"Usunięto kategorię.");;
+
+    }
+
+    public function StartAddProduct()
+    {
+            $categories =  Category::all();
+            return view('pages.productform')->with('categoris',$categories);
+   
+    }
+
     public function AddProduct(Request $request)
     {
 
-    
-        
         $categories =  Category::all();
         $this->validate($request, [
             'nazwa' => 'required',
@@ -137,72 +190,7 @@ class BartekAdminUrbanController extends Controller
         return redirect('BartekAdminUrban')->with('success',"Dodano Produkt.");;
         
     }
-
-
-    public function StartAddCategory()
-    {
-            $categories =  Category::all();
-            return view('pages.categoryform')->with('categoris',$categories);
-    }
-
-    public function AddCategory(Request $request){
-        $this->validate($request, [
-            'Kategoria' => 'required'
-        ]);
-        Category::insert(['Name' => $request->input('Kategoria')]);
-        return redirect('BartekAdminUrban')->with('success',"Dodano kategorię.");;
-    }
-
-    public function StartEditCategory()
-    {
-         $categories = Category::all();
-         return view('pages.allCategories')->with('categoris',$categories);
-         
-    }
-
-    public function EditCategory($id)
-    {
-
-        $categories =  Category::all();
-        return view('pages.categoryEdit')
-                ->with('categoris',$categories)
-                ->with('id',$id);
-    }
-
-    public function UpdateCategory(Request $request)
-    {
-        $this->validate($request, [
-            'Kategoria' => 'required'
-        ]);
-        Category::where('id', $request->idC)
-            ->update(['Name' => $request->Kategoria]);
-            return redirect('BartekAdminUrban')->with('success',"Zaktualizowano kategorię.");
-
-    }
-
-    public function DeleteCategory($id)
-    {
-        Category::where('id', $id)->delete();
-        Post::where('Category', $id)->delete();
-            return redirect('BartekAdminUrban')->with('success',"Usunięto kategorię.");;
-
-    }
-
-    public function StartAddProduct()
-    {
-            $categories =  Category::all();
-            return view('pages.productform')->with('categoris',$categories);
-   
-    }
-
-
-    public function DisplayProductForAdmin()
-    {
-            $categories =  Category::all();
-            $products = POST::GetProductAll();
-            return view('pages.paginationA')->with('categoris',$categories)->with('products',$products);
-    }
-
+    
     public function StartEditProduct($id)
     {
             $categories =  Category::all();
@@ -213,13 +201,23 @@ class BartekAdminUrbanController extends Controller
                 ->with('product',$product);
     }
 
+    public function UpdateProduct(Request $request)
+    {
+            $categories =  Category::all();
+            $product = POST::GetProduct($id);
+            
+            return view('pages.ProductEdit')
+                ->with('categoris',$categories)
+                ->with('product',$product);
+    }
+    
+
     public function DeleteProduct($id)
     {
         Post::where('id', $id)->delete();
         Storage::deleteDirectory("public/images/".$id);
             return redirect('BartekAdminUrban')->with('success',"Usunięto produkt.");;
     }
-
 
     public function searchA(Request $request){
         $this->validate($request, [
@@ -230,6 +228,13 @@ class BartekAdminUrbanController extends Controller
             $searchResult = POST::GetProductALike();
             return view('pages.paginationA')->with('categoris',$categories)->with('products',$searchResult);
     
+    }
+
+    public function DisplayProductForAdmin()
+    {
+            $categories =  Category::all();
+            $products = POST::GetProductAll();
+            return view('pages.paginationA')->with('categoris',$categories)->with('products',$products);
     }
 
 }
