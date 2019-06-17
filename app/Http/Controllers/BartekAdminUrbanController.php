@@ -115,7 +115,6 @@ class BartekAdminUrbanController extends Controller
             'Oncarousel' => $Oncarousel
             ]);
         $id = Post::max("id");
-        $a = 1;
         
         foreach($request->file()['imgs'] as $image){
             // cała nazwa pliku
@@ -132,12 +131,8 @@ class BartekAdminUrbanController extends Controller
 
             images::insert([
                 'path' => $path,
-                'ProductID' => $id,
-                'main' => $a
+                'ProductID' => $id
                 ]);
-            if($a){
-                $a = 0;
-            }
         }
         return redirect('BartekAdminUrban')->with('success',"Dodano Produkt.");;
         
