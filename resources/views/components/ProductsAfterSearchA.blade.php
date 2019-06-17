@@ -3,21 +3,25 @@
             @foreach ($products as $product)
                 <div class="col-xl-4 col-md-6 col-sm-12">
                     <a href="{{url('product/'.$product['Id']."/")}}">
-                        <img src="{{asset("public/storage/images/".$product['Id']."/1.jpg")}}" class="rounded mx-auto d-block" alt="{{$product['Nazwa']}}">
+                        <img src="{{asset($product['path'])}}" class="rounded mx-auto d-block" alt="{{$product['Nazwa']}}">
                         <br>
                         <h5 class="justify-content-center d-flex">{{$product['Nazwa']}}</h5>
                     </a>
                     <div class="btn-group justify-content-center d-flex" role="group">
-                        <button type="button" class="btn btn-secondary">Edytuj</button>
-                        <button name="potwierdzenie" type="button" class="btn btn-lg btn-danger justify-content-center" data-toggle="popover" 
-                        title="Jesteś pewien?"
-                        data-placement="top"
-                        data-html = "true"
-                        data-content = 
+                        <a href="{{url("/BartekAdminUrban/StartEditProduct/".$product['Id'])}}"
+                           class="btn btn-lg btn-secondary align-middle">
+                            Edytuj
+                        </a>
+                        <button name="potwierdzenie" type="button" class="btn btn-lg btn-danger justify-content-center"
+                            data-toggle="popover" 
+                            title="Jesteś pewien?"
+                            data-placement="top"
+                            data-html = "true"
+                            data-content = 
                                 '<a href = "{{url("/BartekAdminUrban/DeleteProduct/".$product['Id'])}}"
-                                    class="btn btn-danger text-white">Usuń</a>'
-                        
-                        >Usuń</button>
+                                    class="btn btn-danger text-white">Usuń</a>'>
+                            Usuń
+                        </button>
                     </div>
                 </div>
             @endforeach

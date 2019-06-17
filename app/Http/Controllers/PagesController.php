@@ -5,16 +5,17 @@ use App\Category;
 use App\Post;
 use App\Order;
 use Illuminate\Http\Request;
-
+use Illuminate\Database\Eloquent\Builder;
 class PagesController extends Controller
 {
     //
     public function index(){
         $ids = Category::get3categorys();
         $products = Post::advertProducts($ids);
+        $carousel = Post::GetProductForCarousel();
         return view('pages.index')
                 ->with('categoris',Category::all())
-                ->with('carousel',Post::where('Oncarousel',true)->get())
+               ->with('carousel',$carousel)
                 ->with('products', $products);
     }
 
@@ -22,12 +23,10 @@ class PagesController extends Controller
         $product = Post::GetProduct($id);
         $ids = Category::get3categorys();
         $products = Post::advertProducts($ids);
-        $images = Post::GetProductAllPhotos($id);
         return view('pages.product')
                 ->with('products', $products)
                 ->with('categoris',Category::all())
-                ->with("product",$product)
-                ->with("images",$images);
+                ->with("product",$product);
     }
 
     public function search(Request $request){

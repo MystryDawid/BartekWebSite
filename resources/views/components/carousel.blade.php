@@ -13,13 +13,13 @@
             <?php $i = 0 ?>
             @foreach ($carousel as $item)
             
-            @if ($i == 1)
+            @if ($i == 0)
                 <div class="carousel-item active">
             @else
                 <div class="carousel-item">
             @endif
                 <div class="container d-flex justify-content-center">
-                <a href="{{url('product/'.$item['Id']."/")}}"><img src="{{asset("public/storage/images/".$item['Id']."/1.jpg")}}"></a>
+                <a href="{{url('product/'.$item['Id']."/")}}"><img src="{{asset($item['path'])}}"></a>
                 </div>
             </div>  
             <?php $i++ ?>

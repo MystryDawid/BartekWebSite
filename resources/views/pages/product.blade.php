@@ -7,20 +7,20 @@
     <div class="row">
       <div class="col-lg-6 col-md-12 justify-content-center">
             <div class="d-flex justify-content-center">
-                <img class="BigImgProduct" src="{{asset("public/storage/images/".$product['Id']."/1.jpg")}}" id="expandedImg">
+                <img class="BigImgProduct" src="{{asset($product[0]['path'])}}" id="expandedImg">
             </div>
             
           
           <br>
           <div class="justify-content-around d-flex">
-            @for ($i = 1; $i <= $images; $i++)
-              <img class="smallImgProduct" src="{{asset("public/storage/images/".$product['Id']."/".$i.".jpg")}}" onclick="myFunction(this);">
-            @endfor
+            @foreach ($product as $image)
+              <img class="smallImgProduct" src="{{asset($image['path'])}}" onclick="myFunction(this);">
+            @endforeach
           </div>
       </div>
       <div class="col-lg-6 col-md-12">
-        <h2>{{$product['Nazwa']}}</h2>
-          {{$product['Description']}}
+        <h2>{{$product[0]['Nazwa']}}</h2>
+          {{$product[0]['Description']}}
       </div>
       
       

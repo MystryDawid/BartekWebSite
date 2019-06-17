@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
+use App\images;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 
 class BartekAdminUrbanController extends Controller
 {
@@ -87,32 +89,58 @@ class BartekAdminUrbanController extends Controller
         //
     }
 
+  
+
     public function AddProduct(Request $request)
     {
 
-        $id = Post::max("id") + 1;
+    
+        
         $categories =  Category::all();
         $this->validate($request, [
             'nazwa' => 'required',
             'category' => 'required',
             'description' => 'required',
             'imgs[]' => 'required',
-            'imgs[]' => 'image:jpeg,jpg',
-            'Oncarousel' =>'required'
+            'imgs[]' => 'image',
         ]);
-        
+        $Oncarousel = 0;
+        if($request->input('Oncarousel')){
+            $Oncarousel = 1;
+        }
         Post::insert([
             'Nazwa' => $request->input('nazwa'),
             'Category' => $request->input('category'),
             'Description' => $request->input('description'),
-            'Oncarousel' => $request->input('Oncarousel')
+            'Oncarousel' => $Oncarousel
             ]);
-        $i = 1;
-        foreach($request->file()['imgs'] as $test){
-            $test->storeAs('/public/images/'.$id,$i.".jpg");
-            $i++;
+        $id = Post::max("id");
+        $a = 1;
+        
+        foreach($request->file()['imgs'] as $image){
+            // cała nazwa pliku
+            $fileNameWithExt = $image->getClientOriginalName();
+            //nazwa pliku
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            //rozszerzenie pliku
+            $extension = pathinfo($fileNameWithExt, PATHINFO_EXTENSION);
+            //generowanie nowej nazwy pliku
+            $fileNameToStore = $fileName."_".time().".".$extension;
+            //zapisywanie pliku w storage i ścieżki
+            $path = 'public/storage/images/'.$fileNameToStore;
+            $image->storeAs('public/images',$fileNameToStore);
+
+            images::insert([
+                'path' => $path,
+                'ProductID' => $id,
+                'main' => $a
+                ]);
+            if($a){
+                $a = 0;
+            }
         }
         return redirect('BartekAdminUrban')->with('success',"Dodano Produkt.");;
+        
     }
 
 
@@ -173,13 +201,21 @@ class BartekAdminUrbanController extends Controller
     }
 
 
-    public function StartEditProduct()
+    public function DisplayProductForAdmin()
     {
-
             $categories =  Category::all();
-
             $products = POST::GetProductAll();
             return view('pages.paginationA')->with('categoris',$categories)->with('products',$products);
+    }
+
+    public function StartEditProduct($id)
+    {
+            $categories =  Category::all();
+            $product = POST::GetProduct($id);
+            
+            return view('pages.ProductEdit')
+                ->with('categoris',$categories)
+                ->with('product',$product);
     }
 
     public function DeleteProduct($id)

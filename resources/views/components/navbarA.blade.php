@@ -39,7 +39,7 @@
                 <a href="{{url("/BartekAdminUrban/StartAddCategory")}}" class="btn bg-dark text-white">Dodaj kategorię</a>
                 <a href="{{url("/BartekAdminUrban/StartEditCategory")}}" class="btn bg-dark text-white">Edytuj kategorię</a>
                 <a href="{{url("/BartekAdminUrban/StartAddProduct")}}" class="btn bg-dark text-white">Dodaj produkt</a>
-                <a href="{{url("/BartekAdminUrban/StartEditProduct")}}" class="btn bg-dark text-white">Edytuj produkt</a>
+                <a href="{{url("/BartekAdminUrban/DisplayProductForAdmin")}}" class="btn bg-dark text-white">Edytuj produkt</a>
                 <a class="btn bg-dark text-white" href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
