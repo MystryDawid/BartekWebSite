@@ -93,8 +93,8 @@ class BartekAdminUrbanController extends Controller
 
     public function StartAddCategory()
     {
-            $categories =  Category::all();
-            return view('pages.categoryform')->with('categoris',$categories);
+        $categories =  Category::all();
+        return view('pages.categoryform')->with('categoris',$categories);
     }
 
     public function AddCategory(Request $request){
@@ -107,8 +107,8 @@ class BartekAdminUrbanController extends Controller
 
     public function StartEditCategory()
     {
-         $categories = Category::all();
-         return view('pages.allCategories')->with('categoris',$categories);
+        $categories = Category::all();
+        return view('pages.allCategories')->with('categoris',$categories);
          
     }
 
@@ -141,8 +141,8 @@ class BartekAdminUrbanController extends Controller
 
     public function StartAddProduct()
     {
-            $categories =  Category::all();
-            return view('pages.productform')->with('categoris',$categories);
+        $categories =  Category::all();
+        return view('pages.productform')->with('categoris',$categories);
    
     }
 
@@ -193,22 +193,59 @@ class BartekAdminUrbanController extends Controller
     
     public function StartEditProduct($id)
     {
-            $categories =  Category::all();
-            $product = POST::GetProduct($id);
-            
-            return view('pages.ProductEdit')
-                ->with('categoris',$categories)
-                ->with('product',$product);
+        $categories =  Category::all();
+        $product = POST::GetProduct($id);
+        
+        return view('pages.ProductEdit')
+            ->with('categoris',$categories)
+            ->with('product',$product);
     }
 
     public function UpdateProduct(Request $request)
+
     {
-            $categories =  Category::all();
-            $product = POST::GetProduct($id);
-            
-            return view('pages.ProductEdit')
-                ->with('categoris',$categories)
-                ->with('product',$product);
+        $categories =  Category::all();
+
+        $Oncarousel = 0;
+        if($request->input('Oncarousel')){
+            $Oncarousel = 1;
+        }
+
+        Post::where('Id', $request->id)->update([
+            'Nazwa' => $request->input('nazwa'),
+            'Category' => $request->input('category'),
+            'Description' => $request->input('description'),
+            'Oncarousel' => $Oncarousel
+            ]);
+
+        if(isset($request->toDelete)){
+            foreach($request->toDelete as $todele){
+                images::where('id', $todele)->delete();
+            }
+        }
+
+        if($request->file()){
+            foreach($request->file()['imgs'] as $image){
+                // cała nazwa pliku
+                $fileNameWithExt = $image->getClientOriginalName();
+                //nazwa pliku
+                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+                //rozszerzenie pliku
+                $extension = pathinfo($fileNameWithExt, PATHINFO_EXTENSION);
+                //generowanie nowej nazwy pliku
+                $fileNameToStore = $fileName."_".time().".".$extension;
+                //zapisywanie pliku w storage i ścieżki
+                $path = 'public/storage/images/'.$fileNameToStore;
+                $image->storeAs('public/images',$fileNameToStore);
+    
+                images::insert([
+                    'path' => $path,
+                    'ProductID' => $request->id
+                    ]);
+            }
+        }
+        
+        return redirect('BartekAdminUrban')->with('success',"Edytowano produkt.");;
     }
     
 
@@ -224,17 +261,17 @@ class BartekAdminUrbanController extends Controller
             'nazwa' => 'required'
         ]);
             
-            $categories =  Category::all();
-            $searchResult = POST::GetProductALike();
-            return view('pages.paginationA')->with('categoris',$categories)->with('products',$searchResult);
+        $categories =  Category::all();
+        $searchResult = POST::GetProductALike();
+        return view('pages.paginationA')->with('categoris',$categories)->with('products',$searchResult);
     
     }
 
     public function DisplayProductForAdmin()
     {
-            $categories =  Category::all();
-            $products = POST::GetProductAll();
-            return view('pages.paginationA')->with('categoris',$categories)->with('products',$products);
+        $categories =  Category::all();
+        $products = POST::GetProductAll();
+        return view('pages.paginationA')->with('categoris',$categories)->with('products',$products);
     }
 
 }

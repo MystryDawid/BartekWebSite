@@ -12,6 +12,7 @@
 <div class="container">
     <div class="row m-auto">
         {!! Form::open(['method' => 'POST','enctype' => 'multipart/form-data','action' => 'BartekAdminUrbanController@UpdateProduct','class' => 'w-100'] )    !!}
+        {{  Form::hidden('id',$product[0]->Id)   }}
         {{  Form::label('nazwa',"Nazwa")    }}
         {{  Form::text('nazwa',$product[0]->Nazwa,['class' => 'form-control', 'placeholder' => "Nazwa towaru"]) }}
         {{  Form::label('description',"Opis")   }}
@@ -39,7 +40,7 @@
         @foreach ($product as $image)
             <div class="justify-content-center">
                 <img class="smallImgProduct" src="{{asset($image['path'])}}"><br>
-                {{  Form::checkbox('CzyUsunąć',$image['id']) }}
+                {{  Form::checkbox('toDelete[]',$image['id']) }}
             </div>
         @endforeach
         </div>
