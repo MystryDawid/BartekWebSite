@@ -22,7 +22,22 @@
         <h2>{{$product[0]['Nazwa']}}</h2>
           {{$product[0]['Description']}}
       </div>
-      
+      <br><br>
+      <div class="container">
+          <br><br><br><br>
+        <div class="row">
+          <h3>Skontaktuj się w sprawie produktu</h3>
+          {!! Form::open(['method' => 'POST','action' => 'UserController@sendEmail','class' => 'w-100'] )    !!}
+          {{  Form::hidden('nazwa',$product[0]['Nazwa']) }}
+          {{  Form::hidden('link',url('product/'.$product[0]['Id'])) }}
+          {{  Form::label('contact',"Dane kontaktowe")    }}
+          {{  Form::text('contact',"",['class' => 'form-control']) }}
+          {{  Form::label('message',"Wiadomość")   }}
+          {{  Form::textarea('message',"",['class' => 'form-control'])   }}
+          {{  Form::submit('Wyślij',['class' => 'btn btn-dark btn-lg'])   }}
+          {!! Form::close() !!}
+        </div>
+      </div>
       
     </div>
 

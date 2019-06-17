@@ -19,6 +19,7 @@ Route::GET('PagesController/category',
 ['uses' => 'PagesController@category']);
 Route::get('/product/{id}', "PagesController@product");
 Route::get('/category/{id}', "PagesController@category");
+Route::POST('/UserController/sendEmail', "UserController@sendEmail");
 Route::get('/', "PagesController@index");
 
 //Admin
