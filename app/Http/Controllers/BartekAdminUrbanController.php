@@ -257,7 +257,6 @@ class BartekAdminUrbanController extends Controller
 
         foreach ($images as $image){
             Storage::delete(substr($image->path,12));
-            print_r(substr($image->path,12));
         }
         
         images::where('ProductID', $id)->delete();
