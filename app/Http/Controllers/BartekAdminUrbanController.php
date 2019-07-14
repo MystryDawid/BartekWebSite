@@ -179,7 +179,7 @@ class BartekAdminUrbanController extends Controller
             //generowanie nowej nazwy pliku
             $fileNameToStore = $fileName."_".time().".".$extension;
             //zapisywanie pliku w storage i ścieżki
-            $path = 'public/storage/images/'.$fileNameToStore;
+            $path = 'storage/app/public/images/'.$fileNameToStore;
             $image->storeAs('public/images',$fileNameToStore);
 
             images::insert([
@@ -233,9 +233,9 @@ class BartekAdminUrbanController extends Controller
                 //rozszerzenie pliku
                 $extension = pathinfo($fileNameWithExt, PATHINFO_EXTENSION);
                 //generowanie nowej nazwy pliku
-                $fileNameToStore = $fileName."_".time().".".$extension;
+                $fileNameToStore = $fileName."_".time().rand().".".$extension;
                 //zapisywanie pliku w storage i ścieżki
-                $path = 'public/storage/images/'.$fileNameToStore;
+                $path = 'storage/app/public/images/'.$fileNameToStore;
                 $image->storeAs('public/images',$fileNameToStore);
     
                 images::insert([
@@ -252,8 +252,17 @@ class BartekAdminUrbanController extends Controller
     public function DeleteProduct($id)
     {
         Post::where('id', $id)->delete();
-        Storage::deleteDirectory("public/images/".$id);
-            return redirect('BartekAdminUrban')->with('success',"Usunięto produkt.");;
+
+        $images = images::all()->where('ProductID', $id);
+
+        foreach ($images as $image){
+            Storage::delete(substr($image->path,12));
+            print_r(substr($image->path,12));
+        }
+        
+        images::where('ProductID', $id)->delete();
+
+           // return redirect('BartekAdminUrban')->with('success',"Usunięto produkt.");;
     }
 
     public function searchA(Request $request){
