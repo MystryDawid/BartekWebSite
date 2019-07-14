@@ -262,7 +262,7 @@ class BartekAdminUrbanController extends Controller
         
         images::where('ProductID', $id)->delete();
 
-           // return redirect('BartekAdminUrban')->with('success',"Usunięto produkt.");;
+        return redirect('BartekAdminUrban')->with('success',"Usunięto produkt.");;
     }
 
     public function searchA(Request $request){
